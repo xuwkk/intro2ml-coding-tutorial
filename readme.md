@@ -32,10 +32,18 @@ window:
 
 ### Running locally
 
-To run locally, use a virtual environment and install all required packages with pip:
+The easiest way to mange dependencies is to use [uv](https://docs.astral.sh/uv/).
+
+Use `uv` to create a virtual environment and install all required packages:
 
 ```bash
-pip install .
+uv sync
+```
+
+To run the individual scripts, use `uv run`:
+
+```bash
+uv run python svm.py
 ```
 
 ---
