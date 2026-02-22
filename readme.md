@@ -19,31 +19,31 @@ Course content (syllabus and lecture slides) can be found [here](https://xuwkk.g
 
 ## Getting Started
 
-### Dependencies
+### Google Colab
 
-**Core (all tutorials):**
+The tutorials can be run in **[Google
+Colab](https://colab.research.google.com/)** so you don’t need to install
+dependencies locally. Start by installing the dependencies in the interactive
+window:
 
-- `numpy`
-- `matplotlib`
-- `scikit-learn`
-
-**Chronos only** (for `chronos_example.py`):
-
-- `pandas[pyarrow]`
-- `chronos-forecasting`
-
-The easiest way to run the tutorials is **[Google Colab](https://colab.research.google.com/)** so you don’t need to install dependencies locally. Start by installing the dependencies in the interactive window:
 ```python
-%pip install chronos-forecasting
+%pip install .
 ```
 
-Chronos can use a GPU if CUDA is available; otherwise it runs on CPU.
-For the `chronos_example.py` tutorial, you can switch between CPU and GPU by clicking the "Runtime" menu and selecting "Change runtime type". 
+### Running locally
 
-To run locally, use a virtual environment and install the packages below.
+The easiest way to mange dependencies is to use [uv](https://docs.astral.sh/uv/).
+
+Use `uv` to create a virtual environment and install all required packages:
 
 ```bash
-pip install numpy matplotlib scikit-learn "pandas[pyarrow]" chronos-forecasting
+uv sync
+```
+
+To run the individual scripts, use `uv run`:
+
+```bash
+uv run python svm.py
 ```
 
 ---
