@@ -28,9 +28,9 @@ X, y = wine.data, wine.target
 target_names = wine.target_names
 feature_names = wine.feature_names
 
-print("Dataset shape:", X.shape, "(samples, features)")
-print("Features:", ", ".join(feature_names))
-print("Classes:", list(target_names), "\n")
+print(f"Dataset shape: {X.shape} (samples, features)")
+print(f"Features: {', '.join(feature_names)}")
+print(f"Classes: {list(target_names)}\n")
 
 # ---------------------------------------------------------------------------
 # Step 2 (Preprocessing): Standardize the features
@@ -50,8 +50,8 @@ n_components = 2
 pca = PCA(n_components=n_components, random_state=42)
 X_pca = pca.fit_transform(X_scaled)
 
-print("\nPCA fitted. Reduced from", X_scaled.shape[1], "features to", n_components, "dimensions.")
-print("New shape:", X_pca.shape)
+print(f"\nPCA fitted. Reduced from {X_scaled.shape[1]} features to {n_components} dimensions.")
+print(f"New shape: {X_pca.shape}")
 
 # ---------------------------------------------------------------------------
 # Step 4: How much information did we keep?
@@ -60,8 +60,8 @@ print("New shape:", X_pca.shape)
 # Sum of these = total variance retained by our 2D projection.
 explained = pca.explained_variance_ratio_
 total_explained = explained.sum()
-print("\nExplained variance per component:", explained)
-print("Total variance retained in 2D: {:.1%}".format(total_explained))
+print(f"\nExplained variance per component: {explained}")
+print(f"Total variance retained in 2D: {total_explained:.1%}")
 print(f"(So we keep more than 95% of the structure while dropping {(X_scaled.shape[1] - n_components)} dimensions.)\n")
 
 # ---------------------------------------------------------------------------
@@ -106,7 +106,7 @@ try:
         )
     plt.xlabel("First principal component")
     plt.ylabel("Second principal component")
-    plt.title("PCA projection (2D from 13D) — variance retained: {:.1%}".format(total_explained))
+    plt.title(f"PCA projection (2D from 13D) — variance retained: {total_explained:.1%}")
     plt.legend()
     plt.tight_layout()
     plt.savefig(os.path.join(IMAGE_DIR, "pca_projection_2d.png"), dpi=120)
@@ -125,12 +125,12 @@ try:
     )
     plt.xlabel("Principal component")
     plt.ylabel("Explained variance ratio")
-    plt.title("Variance explained by each component (all %d dimensions)" % n_features)
+    plt.title(f"Variance explained by each component (all {n_features} dimensions)")
     plt.xticks(range(1, n_features + 1))
     plt.tight_layout()
     plt.savefig(os.path.join(IMAGE_DIR, "pca_scree.png"), dpi=120)
     plt.close()
 
-    print("Images saved in '%s/': pca_original_2d.png, pca_projection_2d.png, pca_scree.png" % IMAGE_DIR)
+    print(f"Images saved in '{IMAGE_DIR}/': pca_original_2d.png, pca_projection_2d.png, pca_scree.png")
 except ImportError:
     print("(Install matplotlib to generate the plots.)")

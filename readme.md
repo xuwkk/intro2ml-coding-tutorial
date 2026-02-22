@@ -17,10 +17,18 @@ Code for the **Introduction to Machine Learning** tutorials of **MECH70039: Data
 
 ## Getting Started
 
-The easiest way to run the tutorials is **[Google Colab](https://colab.research.google.com/)** so you don’t need to install dependencies locally.
+The easiest way to run the tutorials is **[Google Colab](https://colab.research.google.com/)** so you don’t need to install dependencies locally. Start by installing the dependencies in the interactive window:
+```python
+%pip install chronos-forecasting
+```
+
+For the `chronos_example.py` tutorial, you can switch between CPU and GPU by clicking the "Runtime" menu and selecting "Change runtime type".
 
 To run locally, use a virtual environment and install the packages below.
 
+```bash
+pip install numpy matplotlib scikit-learn "pandas[pyarrow]" chronos-forecasting
+```
 ---
 
 ## Dependencies

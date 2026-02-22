@@ -14,7 +14,6 @@ Install Chronos:
 import os
 
 import pandas as pd
-import matplotlib.pyplot as plt
 from chronos import Chronos2Pipeline
 
 # --- Configuration ---
@@ -32,7 +31,7 @@ TARGET_COLUMN = "target"
 def main() -> None:
     # Use GPU if available, otherwise CPU
     device = "cuda" if _cuda_available() else "cpu"
-    print("Training Chronos model on %s..." % device)
+    print(f"Training Chronos model on {device}...")
     
     pipeline = Chronos2Pipeline.from_pretrained(CHRONOS_MODEL, device_map=device)
 
@@ -66,26 +65,35 @@ def main() -> None:
     ts_pred = pred_df.set_index(TIMESTAMP_COLUMN)
     ts_ground_truth = test_df.set_index(TIMESTAMP_COLUMN)[TARGET_COLUMN]
 
-    fig, ax = plt.subplots(figsize=(12, 4))
-    ts_context.plot(ax=ax, label="Historical", color="xkcd:azure")
-    ts_ground_truth.plot(ax=ax, label="Ground truth", color="xkcd:grass green")
-    ts_pred["predictions"].plot(ax=ax, label="Forecast", color="xkcd:violet")
-    ax.fill_between(
-        ts_pred.index,
-        ts_pred["0.1"],
-        ts_pred["0.9"],
-        alpha=0.4,
-        label="80% prediction interval",
-        color="xkcd:light lavender",
-    )
-    ax.set_title("Energy price forecast (Chronos zero-shot)")
-    ax.set_xlabel("Timestamp")
-    ax.legend(loc="best")
-    ax.grid(True, alpha=0.3)
-    fig.tight_layout()
-    os.makedirs("images", exist_ok=True)
-    plt.savefig("images/chronos_forecast.png", dpi=150, bbox_inches="tight")
-    plt.show()
+    try:
+        import matplotlib.pyplot as plt
+
+        IMAGE_DIR = "images"
+        os.makedirs(IMAGE_DIR, exist_ok=True)
+
+        fig, ax = plt.subplots(figsize=(12, 4))
+        ts_context.plot(ax=ax, label="Historical", color="xkcd:azure")
+        ts_ground_truth.plot(ax=ax, label="Ground truth", color="xkcd:grass green")
+        ts_pred["predictions"].plot(ax=ax, label="Forecast", color="xkcd:violet")
+        ax.fill_between(
+            ts_pred.index,
+            ts_pred["0.1"],
+            ts_pred["0.9"],
+            alpha=0.4,
+            label="80% prediction interval",
+            color="xkcd:light lavender",
+        )
+        ax.set_title("Energy price forecast (Chronos zero-shot)")
+        ax.set_xlabel("Timestamp")
+        ax.legend(loc="best")
+        ax.grid(True, alpha=0.3)
+        fig.tight_layout()
+        plt.savefig(os.path.join(IMAGE_DIR, "chronos_forecast.png"), dpi=150, bbox_inches="tight")
+        plt.close()
+
+        print(f"\nImage saved in '{IMAGE_DIR}/chronos_forecast.png'")
+    except ImportError:
+        print("\n(Install matplotlib to generate the plot.)")
 
 
 def _cuda_available() -> bool:

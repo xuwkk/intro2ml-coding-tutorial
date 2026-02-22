@@ -33,7 +33,7 @@ X = iris.data  # shape (150, 4)
 y_true = iris.target  # true species (0=Setosa, 1=Versicolor, 2=Virginica) — for visualization only
 target_names = iris.target_names
 
-print("Dataset shape:", X.shape, "(samples, features)")
+print(f"Dataset shape: {X.shape} (samples, features)")
 print("Features: sepal length, sepal width, petal length, petal width")
 print("We cannot plot 4D directly; K-Means will work in 4D.\n")
 
@@ -58,10 +58,10 @@ kmeans.fit(X_scaled)
 labels = kmeans.labels_
 centroids = kmeans.cluster_centers_  # shape (3, 4) — we cannot plot 4D directly!
 
-print("Number of clusters (K):", K)
-print("Points per cluster:", np.bincount(labels))
+print(f"Number of clusters (K): {K}")
+print(f"Points per cluster: {np.bincount(labels)}")
 print("Centroids are in 4D (one vector per cluster); we'll project them to 2D for plotting.\n")
-print("Inertia (within-cluster sum of squares): {:.2f}".format(kmeans.inertia_))
+print(f"Inertia (within-cluster sum of squares): {kmeans.inertia_:.2f}")
 
 # ---------------------------------------------------------------------------
 # Step 4: Visualize in 2D by projecting with PCA (for illustration only)
@@ -110,12 +110,12 @@ try:
     )
     plt.xlabel("PC1 (projected)")
     plt.ylabel("PC2 (projected)")
-    plt.title("K-Means result (K=%d) — clusters found in 4D, shown in 2D" % K)
+    plt.title(f"K-Means result (K={K}) — clusters found in 4D, shown in 2D")
     plt.legend()
     plt.tight_layout()
     plt.savefig(os.path.join(IMAGE_DIR, "kmeans_clusters.png"), dpi=120)
     plt.close()
 
-    print("\nImages saved in '%s/': kmeans_data_raw.png, kmeans_true_classes.png, kmeans_clusters.png" % IMAGE_DIR)
+    print(f"\nImages saved in '{IMAGE_DIR}/': kmeans_data_raw.png, kmeans_true_classes.png, kmeans_clusters.png")
 except ImportError:
     print("\n(Install matplotlib to plot the results.)")

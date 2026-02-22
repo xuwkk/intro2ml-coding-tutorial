@@ -23,8 +23,8 @@ print("This is a toy example for binary classification using the `make_moons` da
 # noise=0.15 adds some randomness so the problem is not trivial.
 X, y = datasets.make_moons(n_samples=200, noise=0.15, random_state=42)
 
-print("Dataset shape:", X.shape)
-print("Classes:", np.unique(y), "(two interlocking moons)\n")
+print(f"Dataset shape: {X.shape}")
+print(f"Classes: {np.unique(y)} (two interlocking moons)\n")
 
 # ---------------------------------------------------------------------------
 # Step 2 (Data Preprocessing): Split into train and test sets
@@ -32,7 +32,7 @@ print("Classes:", np.unique(y), "(two interlocking moons)\n")
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.25, random_state=42
 )
-print("Train samples:", len(y_train), "| Test samples:", len(y_test))
+print(f"Train samples: {len(y_train)} | Test samples: {len(y_test)}")
 
 # ---------------------------------------------------------------------------
 # Step 3 (Model Training): Linear SVM vs Kernel SVM (RBF)
@@ -108,6 +108,6 @@ try:
     plt.savefig(os.path.join(IMAGE_DIR, "svm_rbf_boundary.png"), dpi=120)
     plt.close()
 
-    print("\nImages saved in '%s/': dataset_moons.png, svm_linear_boundary.png, svm_rbf_boundary.png" % IMAGE_DIR)
+    print(f"\nImages saved in '{IMAGE_DIR}/': dataset_moons.png, svm_linear_boundary.png, svm_rbf_boundary.png")
 except ImportError:
     print("\n(Install matplotlib to plot the decision boundary.)")
