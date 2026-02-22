@@ -2,13 +2,6 @@
 Energy price forecasting with Chronos (zero-shot time-series learning).
 
 Example adapted from: https://github.com/amazon-science/chronos-forecasting
-
-Requirements:
-    pip install 'pandas[pyarrow]' chronos-forecasting matplotlib
-    (GPU optional; uses CPU if CUDA is not available)
-
-Install Chronos:
-    pip install chronos-forecasting
 """
 
 import os
