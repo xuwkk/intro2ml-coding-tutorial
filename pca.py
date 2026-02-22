@@ -62,7 +62,7 @@ explained = pca.explained_variance_ratio_
 total_explained = explained.sum()
 print("\nExplained variance per component:", explained)
 print("Total variance retained in 2D: {:.1%}".format(total_explained))
-print("(So we keep more than 95% of the structure while dropping %d dimensions.)\n" % (X_scaled.shape[1] - n_components))
+print(f"(So we keep more than 95% of the structure while dropping {(X_scaled.shape[1] - n_components)} dimensions.)\n")
 
 # ---------------------------------------------------------------------------
 # Step 5: Visualize — original first 2 features vs PCA projection
